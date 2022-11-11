@@ -45,32 +45,32 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         buttonCollectionView.dataSource = self
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
-        print("configureCollectionView")
+       
         view.addSubview(buttonCollectionView)
         view.addSubview(contentCollectionView)
-        if #available(iOS 11.0, *) {
-            buttonCollectionView.constraints(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
-                                             left: view.leftAnchor, paddingLeft: 0,
-                                             right: view.rightAnchor, paddingRight: 0, height: tabHeight())
-        } else {
-            // Fallback on earlier versions
+//        if #available(iOS 11.0, *) {
+//            buttonCollectionView.constraints(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
+//                                             left: view.leftAnchor, paddingLeft: 0,
+//                                             right: view.rightAnchor, paddingRight: 0, height: tabHeight())
+//        } else {
+//            // Fallback on earlier versions
             buttonCollectionView.constraints(top: view.topAnchor, paddingTop: 0,
                                              left: view.leftAnchor, paddingLeft: 0,
                                              right: view.rightAnchor, paddingRight: 0, height: tabHeight())
-        }
+//        }
         
-        if #available(iOS 11.0, *) {
-            contentCollectionView.constraints(top: buttonCollectionView.bottomAnchor, paddingTop: 0,
-                                              left: view.leftAnchor, paddingLeft: 0,
-                                              right: view.rightAnchor, paddingRight: 0,
-                                              bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 0)
-        } else {
+//        if #available(iOS 11.0, *) {
+//            contentCollectionView.constraints(top: buttonCollectionView.bottomAnchor, paddingTop: 0,
+//                                              left: view.leftAnchor, paddingLeft: 0,
+//                                              right: view.rightAnchor, paddingRight: 0,
+//                                              bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 0)
+//        } else {
             // Fallback on earlier versions
             contentCollectionView.constraints(top: buttonCollectionView.bottomAnchor, paddingTop: 0,
                                               left: view.leftAnchor, paddingLeft: 0,
                                               right: view.rightAnchor, paddingRight: 0,
                                               bottom: view.bottomAnchor, paddingBottom: 0)
-        }
+//        }
         
         buttonCollectionView.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: ButtonCollectionViewCell.identifier)
         contentCollectionView.register(ContentCollectionViewCell.self, forCellWithReuseIdentifier: ContentCollectionViewCell.identifier)
@@ -114,20 +114,20 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
            
             return CGSize(width:view.frame.width, height: tabHeight())
         }
-        if #available(iOS 13.0, *) {
-            let statusHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
-            let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
-            
-            return CGSize(width:view.frame.width, height: view.frame.height - tabHeight()*2 - statusHeight - navigationBarHeight - tabbarHeight)
-        } else {
+//        if #available(iOS 13.0, *) {
+//            let statusHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+//            let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
+//            let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+//
+//            return CGSize(width:view.frame.width, height: view.frame.height - tabHeight()*2 - statusHeight - navigationBarHeight - tabbarHeight)
+//        } else {
             // Fallback on earlier versions
             
             let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
             let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
             
             return CGSize(width:view.frame.width, height: view.frame.height - tabHeight()*2 - navigationBarHeight - tabbarHeight)
-        }
+//        }
        
     }
     

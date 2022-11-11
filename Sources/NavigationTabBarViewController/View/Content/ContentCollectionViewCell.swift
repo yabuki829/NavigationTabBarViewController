@@ -13,10 +13,8 @@ class ContentCollectionViewCell:UICollectionViewCell{
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.isScrollEnabled = false
-        
         return cv
     }()
  
