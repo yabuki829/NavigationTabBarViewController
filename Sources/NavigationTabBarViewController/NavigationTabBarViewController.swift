@@ -5,20 +5,7 @@ public struct TabColor {
     public var backgroundColor :UIColor
 }
 
-public struct TabContent{
-    let view:UIView
-    let height:CGFloat
-    
-    public init(view:UIView,height:CGFloat){
-        self.view = view
-        self.height = height
-    }
-}
-
 open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
-    
-    
-    private var childrenViewController = [UIViewController]()
     public var titleList = [String]()
     private let buttonCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
