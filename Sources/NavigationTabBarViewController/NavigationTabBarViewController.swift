@@ -19,13 +19,15 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         return cv
     }()
     open override func viewDidLoad() {
+        super.viewDidLoad()
+        
         configureCollectionView()
     }
-    open func viewControllers() -> [UIViewController] {
+    public func viewControllers() -> [UIViewController] {
         return [UIViewController]()
     }
     
-    open func tabHeight() -> CGFloat {
+    public func tabHeight() -> CGFloat {
         return 30
     }
   
@@ -37,6 +39,7 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         
         view.addSubview(buttonCollectionView)
         view.addSubview(contentCollectionView)
+
         if #available(iOS 11.0, *) {
             buttonCollectionView.constraints(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
                                              left: view.leftAnchor, paddingLeft: 0,
