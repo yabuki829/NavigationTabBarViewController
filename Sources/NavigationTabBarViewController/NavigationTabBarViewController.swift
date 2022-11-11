@@ -35,11 +35,11 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     open override func viewDidLoad() {
         configureCollectionView()
     }
-    public func viewControllers() -> [UIViewController] {
+    open func viewControllers() -> [UIViewController] {
         return [UIViewController]()
     }
     
-    public func tabHeight() -> CGFloat {
+    open func tabHeight() -> CGFloat {
         return 30
     }
   
