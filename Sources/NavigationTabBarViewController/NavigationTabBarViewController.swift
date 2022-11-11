@@ -16,13 +16,10 @@ public struct TabContent{
 }
 
 open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
-    
-    
     private var childrenViewController = [UIViewController]()
     public var titleList = [String]()
     private let buttonCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
@@ -48,7 +45,7 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         buttonCollectionView.dataSource = self
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
-        
+        print("configureCollectionView")
         view.addSubview(buttonCollectionView)
         view.addSubview(contentCollectionView)
         if #available(iOS 11.0, *) {
