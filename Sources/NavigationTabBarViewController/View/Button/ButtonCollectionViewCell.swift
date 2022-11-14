@@ -18,7 +18,7 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     weak var delegate:reloadDelegate? = nil
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
@@ -63,6 +63,9 @@ class ButtonCollectionViewCell:UICollectionViewCell{
             self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
         }
         
+        if tabBarType == .dynamic {
+            self.collectionView.collectionViewLayout.collectionViewContentSize = UICollectionViewFlowLayout.automaticSize
+        }
     }
     
    
