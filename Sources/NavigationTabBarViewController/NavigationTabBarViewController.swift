@@ -21,7 +21,7 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     }()
     
     public var selectedText = TabColor(textColor: .white , backgroundColor: .link)
-    public var defalultText = TabColor(textColor: .black , backgroundColor: .systemGray5)
+    public var defalultText = TabColor(textColor: .black , backgroundColor: .white)
     open override func viewDidLoad() {
         super.viewDidLoad()
        
