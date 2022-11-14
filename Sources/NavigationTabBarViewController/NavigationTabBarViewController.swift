@@ -6,7 +6,6 @@ public struct TabColor {
 }
 
 public enum TabBarType {
-    case infinite
     case dynamic
     case nomal
 }
@@ -91,16 +90,13 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
         switch settingTabbarType() {
             case .nomal:
                 print("ノーマル")
-            
-            case .infinite:
-                print("無限")
             case .dynamic:
                 print("動的")
         }
         if collectionView == self.buttonCollectionView {
             //ボタンのリストを表示する
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath) as! ButtonCollectionViewCell
-            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText)
+            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText, type: tabBarType!)
             cell.height = tabHeight()
             cell.delegate = self
             return cell
@@ -129,24 +125,7 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
        
     }
     
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if settingTabbarType() == .infinite{
-            let pageFloat = (scrollView.contentOffset.x / scrollView.frame.size.width)
-            let pageInt = Int(round(pageFloat))
-            print("ページint",pageInt)
-            switch pageInt {
-            case 0:
-                buttonCollectionView.scrollToItem(at: [0, 3], at: .bottom, animated: false)
-            case titleList.count - 1:
-                buttonCollectionView.scrollToItem(at: [0, 1], at: .bottom, animated: false)
-            default:
-                break
-            }
-        }
-       
-    }
-
-    
+   
     
 }
 extension UIView{
