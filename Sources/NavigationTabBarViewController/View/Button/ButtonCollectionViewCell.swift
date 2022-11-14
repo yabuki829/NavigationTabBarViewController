@@ -72,7 +72,7 @@ extension ButtonCollectionViewCell:UICollectionViewDelegate,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonViewCell.identifier, for: indexPath) as! ButtonViewCell
-        cell.configure(title: titleList[indexPath.row])
+        cell.configure(title: titleList[indexPath.row], defalutText: defaultText!, selectedText: selectedText!)
         
         return cell
     }
