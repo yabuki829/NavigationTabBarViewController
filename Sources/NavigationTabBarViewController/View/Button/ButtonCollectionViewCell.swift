@@ -17,8 +17,9 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     static let identifier = "ButtonCollectionView"
     weak var delegate:reloadDelegate? = nil
     let collectionView: UICollectionView = {
-        
-        let cv = UICollectionView()
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
     var titleList = [String]()
@@ -43,19 +44,6 @@ class ButtonCollectionViewCell:UICollectionViewCell{
         self.defaultText = defalutText
         self.selectedText = selectedText
         self.tabBarType = type
-        
-        switch tabBarType {
-            case .nomal:
-                let layout = UICollectionViewFlowLayout()
-                collectionView.collectionViewLayout = layout
-            case .dynamic:
-                let layout = UICollectionViewFlowLayout()
-                layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-                collectionView.collectionViewLayout = layout
-                collectionView.isScrollEnabled = true
-            case .none:
-                break
-            }
         
        
     }
@@ -94,9 +82,7 @@ extension ButtonCollectionViewCell:UICollectionViewDelegate,UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if tabBarType == .dynamic {
-            return CGSize(width: frame.width , height: height)
-        }
+       
         return CGSize(width: frame.width / CGFloat(titleList.count), height: height)
         
       
