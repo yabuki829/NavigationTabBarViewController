@@ -5,6 +5,12 @@ public struct TabColor {
     public var backgroundColor :UIColor
 }
 
+public enum TabBarType {
+    case infinite
+    case dynamic
+    case nomal
+}
+
 open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     public var titleList = [String]()
     private let buttonCollectionView: UICollectionView = {
@@ -18,11 +24,13 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
+    
     public var selectedText = TabColor(textColor: .white , backgroundColor: .link)
     public var defalultText = TabColor(textColor: .black , backgroundColor: .systemGray5)
-
+    var tabBarType: TabBarType?
     open override func viewDidLoad() {
         super.viewDidLoad()
+       
         configureCollectionView()
     }
     open func viewControllers() -> [UIViewController] {
@@ -31,6 +39,9 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     
     open func tabHeight() -> CGFloat {
         return 30
+    }
+    open func settingTabbarType() -> TabBarType {
+        return .nomal
     }
   
     func configureCollectionView(){
@@ -60,11 +71,13 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         
         
     }
-    func reload(indexPath: IndexPath) {
+    internal func reload(indexPath: IndexPath) {
         //リロードする
         print("Reload")
         contentCollectionViewCell.collectionView.scrollToItem(at:indexPath , at: .centeredHorizontally, animated: true)
     }
+
+    
 }
 
 
@@ -75,6 +88,15 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
+        switch settingTabbarType() {
+            case .nomal:
+                print("ノーマル")
+            
+            case .infinite:
+                print("無限")
+            case .dynamic:
+                print("動的")
+        }
         if collectionView == self.buttonCollectionView {
             //ボタンのリストを表示する
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath) as! ButtonCollectionViewCell
@@ -106,6 +128,24 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
         
        
     }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if settingTabbarType() == .infinite{
+            let pageFloat = (scrollView.contentOffset.x / scrollView.frame.size.width)
+            let pageInt = Int(round(pageFloat))
+            print("ページint",pageInt)
+            switch pageInt {
+            case 0:
+                buttonCollectionView.scrollToItem(at: [0, 3], at: .bottom, animated: false)
+            case titleList.count - 1:
+                buttonCollectionView.scrollToItem(at: [0, 1], at: .bottom, animated: false)
+            default:
+                break
+            }
+        }
+       
+    }
+
     
     
 }
