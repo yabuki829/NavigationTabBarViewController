@@ -18,9 +18,11 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
+    public var selectedText = TabColor(textColor: .white , backgroundColor: .link)
+    public var defalultText = TabColor(textColor: .black , backgroundColor: .systemGray5)
+
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureCollectionView()
     }
     open func viewControllers() -> [UIViewController] {
@@ -40,29 +42,18 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
         view.addSubview(buttonCollectionView)
         view.addSubview(contentCollectionView)
 
-        if #available(iOS 11.0, *) {
-            buttonCollectionView.constraints(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
-                                             left: view.leftAnchor, paddingLeft: 0,
-                                             right: view.rightAnchor, paddingRight: 0, height: tabHeight())
-        } else {
-            // Fallback on earlier versions
-            buttonCollectionView.constraints(top: view.topAnchor, paddingTop: 0,
-                                             left: view.leftAnchor, paddingLeft: 0,
-                                             right: view.rightAnchor, paddingRight: 0, height: tabHeight())
-        }
+      
+        buttonCollectionView.constraints(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
+                                         left: view.leftAnchor, paddingLeft: 0,
+                                         right: view.rightAnchor, paddingRight: 0, height: tabHeight())
+      
         
-        if #available(iOS 11.0, *) {
-            contentCollectionView.constraints(top: buttonCollectionView.bottomAnchor, paddingTop: 0,
-                                              left: view.leftAnchor, paddingLeft: 0,
-                                              right: view.rightAnchor, paddingRight: 0,
-                                              bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 0)
-        } else {
-            // Fallback on earlier versions
-            contentCollectionView.constraints(top: buttonCollectionView.bottomAnchor, paddingTop: 0,
-                                              left: view.leftAnchor, paddingLeft: 0,
-                                              right: view.rightAnchor, paddingRight: 0,
-                                              bottom: view.bottomAnchor, paddingBottom: 0)
-        }
+      
+        contentCollectionView.constraints(top: buttonCollectionView.bottomAnchor, paddingTop: 0,
+                                          left: view.leftAnchor, paddingLeft: 0,
+                                          right: view.rightAnchor, paddingRight: 0,
+                                          bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 0)
+      
         
         buttonCollectionView.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: ButtonCollectionViewCell.identifier)
         contentCollectionView.register(ContentCollectionViewCell.self, forCellWithReuseIdentifier: ContentCollectionViewCell.identifier)
@@ -87,7 +78,7 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
         if collectionView == self.buttonCollectionView {
             //ボタンのリストを表示する
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath) as! ButtonCollectionViewCell
-            cell.configure(titleList: self.titleList)
+            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText)
             cell.height = tabHeight()
             cell.delegate = self
             return cell
@@ -106,20 +97,13 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
            
             return CGSize(width:view.frame.width, height: tabHeight())
         }
-        if #available(iOS 13.0, *) {
-            let statusHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
-            let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+      
+        let statusHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
+        let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
             
-            return CGSize(width:view.frame.width, height: view.frame.height - tabHeight()*2 - statusHeight - navigationBarHeight - tabbarHeight)
-        } else {
-            // Fallback on earlier versions
-            
-            let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
-            let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
-            
-            return CGSize(width:view.frame.width, height: view.frame.height - tabHeight()*2 - navigationBarHeight - tabbarHeight)
-        }
+        return CGSize(width:view.frame.width, height: view.frame.height - tabHeight()*2 - statusHeight - navigationBarHeight - tabbarHeight)
+        
        
     }
     

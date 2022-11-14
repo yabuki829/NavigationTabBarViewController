@@ -25,6 +25,9 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     var height = CGFloat()
     var selectedIndexPath: IndexPath?
     
+    var selectedText: TabColor?
+    var defaultText: TabColor?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,8 +38,10 @@ class ButtonCollectionViewCell:UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(titleList:[String]){
+    func configure(titleList:[String],defalutText:TabColor,selectedText:TabColor){
         self.titleList = titleList
+        self.defaultText = defalutText
+        self.selectedText = selectedText
        
     }
     func configureCollectionView(){
