@@ -95,7 +95,7 @@ extension ButtonCollectionViewCell:UICollectionViewDelegate,UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if tabBarType == .dynamic {
-            return collectionViewLayout.collectionViewContentSize
+            return CGSize(width: frame.width , height: height)
         }
         return CGSize(width: frame.width / CGFloat(titleList.count), height: height)
         
