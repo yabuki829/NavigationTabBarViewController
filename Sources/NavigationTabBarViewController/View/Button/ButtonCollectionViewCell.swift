@@ -18,7 +18,6 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     weak var delegate:reloadDelegate? = nil
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
@@ -28,7 +27,7 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     
     var selectedText: TabColor?
     var defaultText: TabColor?
-    var tabBarType: TabBarType?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -39,12 +38,10 @@ class ButtonCollectionViewCell:UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(titleList:[String],defalutText:TabColor,selectedText:TabColor,type:TabBarType){
+    func configure(titleList:[String],defalutText:TabColor,selectedText:TabColor){
         self.titleList = titleList
         self.defaultText = defalutText
         self.selectedText = selectedText
-        self.tabBarType = type
-        
        
     }
     func configureCollectionView(){
@@ -61,10 +58,6 @@ class ButtonCollectionViewCell:UICollectionViewCell{
         self.selectedIndexPath = indexPath
         DispatchQueue.main.async {
             self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
-        }
-        
-        if tabBarType == .dynamic {
-            self.collectionView.collectionViewLayout.collectionViewContentSize = UICollectionViewFlowLayout.automaticSize
         }
     }
     
@@ -85,11 +78,8 @@ extension ButtonCollectionViewCell:UICollectionViewDelegate,UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
-        return CGSize(width: frame.width / CGFloat(titleList.count), height: height)
         
-      
-       
+        return CGSize(width: frame.width / CGFloat(titleList.count), height: height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

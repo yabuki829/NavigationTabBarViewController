@@ -5,10 +5,6 @@ public struct TabColor {
     public var backgroundColor :UIColor
 }
 
-public enum TabBarType {
-    case dynamic
-    case nomal
-}
 
 open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     public var titleList = [String]()
@@ -38,10 +34,7 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     open func tabHeight() -> CGFloat {
         return 30
     }
-    open func settingTabbarType() -> TabBarType {
-        return .nomal
-    }
-  
+
     func configureCollectionView(){
         buttonCollectionView.delegate = self
         buttonCollectionView.dataSource = self
@@ -89,7 +82,7 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
         if collectionView == self.buttonCollectionView {
             //ボタンのリストを表示する
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath) as! ButtonCollectionViewCell
-            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText, type: settingTabbarType())
+            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText)
             cell.height = tabHeight()
             cell.delegate = self
             return cell
@@ -105,7 +98,6 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
     }
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.buttonCollectionView {
-           
             return CGSize(width:view.frame.width, height: tabHeight())
         }
       
