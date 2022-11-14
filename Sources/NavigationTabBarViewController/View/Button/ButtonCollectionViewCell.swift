@@ -17,9 +17,8 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     static let identifier = "ButtonCollectionView"
     weak var delegate:reloadDelegate? = nil
     let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        let cv = UICollectionView()
         return cv
     }()
     var titleList = [String]()
@@ -44,6 +43,20 @@ class ButtonCollectionViewCell:UICollectionViewCell{
         self.defaultText = defalutText
         self.selectedText = selectedText
         self.tabBarType = type
+        
+        switch tabBarType {
+            case .nomal:
+                let layout = UICollectionViewFlowLayout()
+                collectionView.collectionViewLayout = layout
+            case .dynamic:
+                let layout = UICollectionViewFlowLayout()
+                layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+                collectionView.collectionViewLayout = layout
+                collectionView.isScrollEnabled = true
+            case .none:
+                break
+            }
+        
        
     }
     func configureCollectionView(){
@@ -61,6 +74,7 @@ class ButtonCollectionViewCell:UICollectionViewCell{
         DispatchQueue.main.async {
             self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
         }
+        
     }
     
    
@@ -80,10 +94,12 @@ extension ButtonCollectionViewCell:UICollectionViewDelegate,UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if tabBarType != .dynamic {
-            return CGSize(width: frame.width / CGFloat(titleList.count), height: height)
+        if tabBarType == .dynamic {
+            return collectionViewLayout.collectionViewContentSize
         }
-        return CGSize()
+        return CGSize(width: frame.width / CGFloat(titleList.count), height: height)
+        
+      
        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

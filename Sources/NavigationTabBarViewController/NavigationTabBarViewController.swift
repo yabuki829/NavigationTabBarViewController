@@ -86,12 +86,6 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
-        switch settingTabbarType() {
-            case .nomal:
-                print("ノーマル")
-            case .dynamic:
-                print("動的")
-        }
         if collectionView == self.buttonCollectionView {
             //ボタンのリストを表示する
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath) as! ButtonCollectionViewCell
