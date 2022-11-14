@@ -18,7 +18,7 @@ class ButtonCollectionViewCell:UICollectionViewCell{
     weak var delegate:reloadDelegate? = nil
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return cv
     }()
