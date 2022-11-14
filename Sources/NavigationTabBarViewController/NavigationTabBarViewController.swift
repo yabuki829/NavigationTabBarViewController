@@ -26,7 +26,6 @@ open class UINavigationTabBarViewController:UIViewController, reloadDelegate{
     
     public var selectedText = TabColor(textColor: .white , backgroundColor: .link)
     public var defalultText = TabColor(textColor: .black , backgroundColor: .systemGray5)
-    var tabBarType: TabBarType?
     open override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -96,7 +95,7 @@ extension UINavigationTabBarViewController:UICollectionViewDelegate,UICollection
         if collectionView == self.buttonCollectionView {
             //ボタンのリストを表示する
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath) as! ButtonCollectionViewCell
-            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText, type: tabBarType!)
+            cell.configure(titleList: titleList, defalutText: defalultText, selectedText: selectedText, type: settingTabbarType())
             cell.height = tabHeight()
             cell.delegate = self
             return cell
