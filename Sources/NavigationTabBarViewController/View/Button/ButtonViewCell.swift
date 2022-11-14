@@ -19,8 +19,8 @@ class ButtonViewCell:UICollectionViewCell{
     
     override var isSelected: Bool{
         didSet{
-            backgroundColor = isSelected ? .darkGray : .white
-            label.textColor = isSelected ? .white : .darkGray
+            backgroundColor = isSelected ? selectedText?.backgroundColor : defaultText?.backgroundColor
+            label.textColor = isSelected ? selectedText?.textColor : defaultText?.textColor
         }
     }
     override init(frame: CGRect) {
