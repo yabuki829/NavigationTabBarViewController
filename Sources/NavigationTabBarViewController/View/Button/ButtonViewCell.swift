@@ -14,6 +14,8 @@ class ButtonViewCell:UICollectionViewCell{
         label.textAlignment = .center
         return label
     }()
+    var selectedText: TabColor?
+    var defaultText: TabColor?
     
     override var isSelected: Bool{
         didSet{
@@ -29,7 +31,7 @@ class ButtonViewCell:UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title:String){
+    func configure(title:String, defalutText:TabColor,selectedText:TabColor){
         label.text = title
         print(title)
         contentView.addSubview(label)
@@ -38,6 +40,8 @@ class ButtonViewCell:UICollectionViewCell{
                           left: contentView.leftAnchor, paddingLeft: 0,
                           right: contentView.rightAnchor, paddingRight: 0,
                           bottom: contentView.bottomAnchor, paddingBottom: 0)
+        self.defaultText = defalutText
+        self.selectedText = selectedText
       
     }
     

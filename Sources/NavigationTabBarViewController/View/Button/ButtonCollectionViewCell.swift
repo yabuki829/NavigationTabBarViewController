@@ -73,6 +73,7 @@ extension ButtonCollectionViewCell:UICollectionViewDelegate,UICollectionViewData
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonViewCell.identifier, for: indexPath) as! ButtonViewCell
         cell.configure(title: titleList[indexPath.row])
+        
         return cell
     }
     
